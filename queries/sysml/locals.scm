@@ -72,4 +72,4 @@
 
 ; References
 
-(qualified_name (identifier) @local.reference)
+(qualified_name [(identifier) (unrestricted_name)] @local.reference)
