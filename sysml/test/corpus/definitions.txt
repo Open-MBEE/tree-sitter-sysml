@@ -1,0 +1,724 @@
+================================================================================
+Definitions
+================================================================================
+
+package Definitions {
+    abstract part def Vehicle :> Base::Anything {
+        attribute mass : MassValue;
+    }
+    item def Fuel;
+    attribute def <mv> MassValue :> ScalarValues::Real;
+    enum def Color { red; green; blue; }
+    occurrence def Trip;
+    port def FuelPort { in item fuel : Fuel; }
+    connection def Link { end a : Vehicle; end b : Vehicle; }
+    interface def Plug { end p1 : FuelPort; end p2 : ~FuelPort; }
+    allocation def Alloc;
+    flow def FuelFlow;
+    metadata def Safety { attribute level : Integer; }
+    action def Drive { in speed : Real; out done : Boolean; }
+    calc def Add { in x : Real; in y : Real; return : Real = x + y; }
+    state def Machine;
+    constraint def Positive { in x : Real; x > 0 }
+    requirement def Req { subject s : Vehicle; require constraint { s.mass > 0 } }
+    concern def Cost;
+    case def Case;
+    analysis def Analysis;
+    verification def Verify;
+    use case def Use;
+    view def V;
+    viewpoint def VP;
+    rendering def R;
+    variation part def Choice { variant part a : Vehicle; variant part b : Vehicle; }
+    individual part def MyCar :> Vehicle;
+    part def Wheeled unions Car, Truck;
+    #safe part def Marked;
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (package
+    (identifier)
+    (body
+      (part_definition
+        (identifier)
+        (specializes
+          (qualified_name
+            (identifier)
+            (identifier)))
+        (body
+          (attribute_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))))
+      (item_definition
+        (identifier))
+      (attribute_definition
+        (identifier)
+        (identifier)
+        (specializes
+          (qualified_name
+            (identifier)
+            (identifier))))
+      (enumeration_definition
+        (identifier)
+        (body
+          (reference_usage
+            (identifier))
+          (reference_usage
+            (identifier))
+          (reference_usage
+            (identifier))))
+      (occurrence_definition
+        (identifier))
+      (port_definition
+        (identifier)
+        (body
+          (item_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))))
+      (connection_definition
+        (identifier)
+        (body
+          (reference_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (reference_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))))
+      (interface_definition
+        (identifier)
+        (body
+          (reference_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (reference_usage
+            (identifier)
+            (typed_by
+              (conjugated_port_reference
+                (qualified_name
+                  (identifier)))))))
+      (allocation_definition
+        (identifier))
+      (flow_definition
+        (identifier))
+      (metadata_definition
+        (identifier)
+        (body
+          (attribute_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))))
+      (action_definition
+        (identifier)
+        (body
+          (reference_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (reference_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))))
+      (calculation_definition
+        (identifier)
+        (body
+          (reference_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (reference_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (return_parameter
+            (reference_usage
+              (typed_by
+                (qualified_name
+                  (identifier)))
+              (value_part
+                (binary_expression
+                  (qualified_name
+                    (identifier))
+                  (qualified_name
+                    (identifier))))))))
+      (state_definition
+        (identifier))
+      (constraint_definition
+        (identifier)
+        (body
+          (reference_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (result_expression_member
+            (binary_expression
+              (qualified_name
+                (identifier))
+              (literal_integer)))))
+      (requirement_definition
+        (identifier)
+        (body
+          (subject_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (requirement_constraint_usage
+            (body
+              (result_expression_member
+                (binary_expression
+                  (feature_chain_expression
+                    (qualified_name
+                      (identifier))
+                    (qualified_name
+                      (identifier)))
+                  (literal_integer)))))))
+      (concern_definition
+        (identifier))
+      (case_definition
+        (identifier))
+      (analysis_case_definition
+        (identifier))
+      (verification_case_definition
+        (identifier))
+      (use_case_definition
+        (identifier))
+      (view_definition
+        (identifier))
+      (viewpoint_definition
+        (identifier))
+      (rendering_definition
+        (identifier))
+      (part_definition
+        (identifier)
+        (body
+          (variant_member
+            (part_usage
+              (identifier)
+              (typed_by
+                (qualified_name
+                  (identifier)))))
+          (variant_member
+            (part_usage
+              (identifier)
+              (typed_by
+                (qualified_name
+                  (identifier)))))))
+      (part_definition
+        (identifier)
+        (specializes
+          (qualified_name
+            (identifier))))
+      (part_definition
+        (identifier)
+        (unions
+          (qualified_name
+            (identifier))
+          (qualified_name
+            (identifier))))
+      (part_definition
+        (prefix_metadata
+          (qualified_name
+            (identifier)))
+        (identifier)))))
+
+================================================================================
+Usages
+================================================================================
+
+package Usages {
+    part vehicle : Vehicle {
+        part wheels : Wheel[4] ordered nonunique;
+        ref part driver : Person[0..1];
+        attribute mass : MassValue = 1200 [kg];
+        attribute redefines volume default 3.0;
+        item fuel : Fuel;
+        port fuelPort : FuelPort;
+        port mirrored : ~FuelPort;
+        connection link : Link connect a to b;
+        connect a.port to b.port;
+        interface plug : Plug connect a.p to b.p;
+        bind a.x = b.y;
+        binding b bind a.x = b.y;
+        flow of Fuel from tank.out to engine.in;
+        flow fuelFlow : FuelFlow from tank.out to engine.in;
+        allocate a to b;
+        allocation alloc : Alloc allocate a to b;
+        occurrence o : Trip;
+        event occurrence start;
+        snapshot s : Vehicle;
+        timeslice ts : Vehicle;
+        derived attribute total : Real = mass + 1;
+        constant attribute fixed : Real = 1;
+        var attribute changing : Real;
+        composite part owned : Vehicle;
+        portion part slice : Vehicle;
+        end part e : Vehicle;
+        abstract part ab : Vehicle;
+        readonly part ro : Vehicle;
+        part chained : a.b.c;
+        part typed by Vehicle;
+        part defined by Vehicle;
+        attribute typed : Real;
+        attribute defined : Real;
+        attribute chain : Real;
+        attribute count : Integer = chain + typed + defined;
+        succession first a then b;
+        succession s2 first a then b;
+        succession s3 : Succession first a then b;
+        message m of Signal from a to b;
+        message from a to b;
+        expr e { in x : Real; x }
+        part p : Vehicle[1..*] :> base :>> other ::> ref => cross;
+        enum c : Color = Color::red;
+        metadata Safety about vehicle;
+        @Safety { level = 1; }
+        #safe part marked;
+        part <'short name'> 'long name' : Vehicle;
+    }
+    part vehicles[*] : Vehicle;
+    ref vehicle2 : Vehicle;
+    x : Vehicle;
+    variation part choice : Vehicle { variant a; variant part b; }
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (package
+    (identifier)
+    (body
+      (part_usage
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier)))
+        (body
+          (part_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier)))
+            (multiplicity_range
+              (literal_integer)))
+          (part_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier)))
+            (multiplicity_range
+              (binary_expression
+                (literal_integer)
+                (literal_integer))))
+          (attribute_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier)))
+            (value_part
+              (index_expression
+                (literal_integer)
+                (qualified_name
+                  (identifier)))))
+          (attribute_usage
+            (redefines
+              (qualified_name
+                (identifier)))
+            (value_part
+              (literal_real)))
+          (item_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (port_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (port_usage
+            (identifier)
+            (typed_by
+              (conjugated_port_reference
+                (qualified_name
+                  (identifier)))))
+          (connection_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier)))
+            (connector_end
+              (qualified_name
+                (identifier)))
+            (connector_end
+              (qualified_name
+                (identifier))))
+          (connection_usage
+            (connector_end
+              (feature_chain
+                (qualified_name
+                  (identifier))
+                (qualified_name
+                  (identifier))))
+            (connector_end
+              (feature_chain
+                (qualified_name
+                  (identifier))
+                (qualified_name
+                  (identifier)))))
+          (interface_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier)))
+            (connector_end
+              (feature_chain
+                (qualified_name
+                  (identifier))
+                (qualified_name
+                  (identifier))))
+            (connector_end
+              (feature_chain
+                (qualified_name
+                  (identifier))
+                (qualified_name
+                  (identifier)))))
+          (binding_connector_as_usage
+            (connector_end
+              (feature_chain
+                (qualified_name
+                  (identifier))
+                (qualified_name
+                  (identifier))))
+            (connector_end
+              (feature_chain
+                (qualified_name
+                  (identifier))
+                (qualified_name
+                  (identifier)))))
+          (binding_connector_as_usage
+            (identifier)
+            (connector_end
+              (feature_chain
+                (qualified_name
+                  (identifier))
+                (qualified_name
+                  (identifier))))
+            (connector_end
+              (feature_chain
+                (qualified_name
+                  (identifier))
+                (qualified_name
+                  (identifier)))))
+          (flow_usage
+            (payload
+              (qualified_name
+                (identifier)))
+            (feature_chain
+              (qualified_name
+                (identifier))
+              (qualified_name
+                (identifier)))
+            (feature_chain
+              (qualified_name
+                (identifier))
+              (qualified_name
+                (identifier))))
+          (flow_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier)))
+            (feature_chain
+              (qualified_name
+                (identifier))
+              (qualified_name
+                (identifier)))
+            (feature_chain
+              (qualified_name
+                (identifier))
+              (qualified_name
+                (identifier))))
+          (allocation_usage
+            (connector_end
+              (qualified_name
+                (identifier)))
+            (connector_end
+              (qualified_name
+                (identifier))))
+          (allocation_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier)))
+            (connector_end
+              (qualified_name
+                (identifier)))
+            (connector_end
+              (qualified_name
+                (identifier))))
+          (occurrence_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (event_occurrence_usage
+            (identifier))
+          (reference_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (reference_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (attribute_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier)))
+            (value_part
+              (binary_expression
+                (qualified_name
+                  (identifier))
+                (literal_integer))))
+          (attribute_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier)))
+            (value_part
+              (literal_integer)))
+          (attribute_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (part_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (part_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (part_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (part_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (result_expression_member
+            (qualified_name
+              (identifier)))
+          (part_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (part_usage
+            (identifier)
+            (typed_by
+              (feature_chain
+                (qualified_name
+                  (identifier))
+                (qualified_name
+                  (identifier))
+                (qualified_name
+                  (identifier)))))
+          (part_usage
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (part_usage
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (attribute_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (attribute_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (attribute_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (attribute_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier)))
+            (value_part
+              (binary_expression
+                (binary_expression
+                  (qualified_name
+                    (identifier))
+                  (qualified_name
+                    (identifier)))
+                (qualified_name
+                  (identifier)))))
+          (succession_as_usage
+            (connector_end
+              (qualified_name
+                (identifier)))
+            (connector_end
+              (qualified_name
+                (identifier))))
+          (succession_as_usage
+            (identifier)
+            (connector_end
+              (qualified_name
+                (identifier)))
+            (connector_end
+              (qualified_name
+                (identifier))))
+          (succession_as_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier)))
+            (connector_end
+              (qualified_name
+                (identifier)))
+            (connector_end
+              (qualified_name
+                (identifier))))
+          (message
+            (identifier)
+            (payload
+              (qualified_name
+                (identifier)))
+            (qualified_name
+              (identifier))
+            (qualified_name
+              (identifier)))
+          (message
+            (qualified_name
+              (identifier))
+            (qualified_name
+              (identifier)))
+          (expression_usage
+            (identifier)
+            (body
+              (reference_usage
+                (identifier)
+                (typed_by
+                  (qualified_name
+                    (identifier))))
+              (result_expression_member
+                (qualified_name
+                  (identifier)))))
+          (part_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier)))
+            (multiplicity_range
+              (binary_expression
+                (literal_integer)
+                (literal_infinity)))
+            (subsets
+              (qualified_name
+                (identifier)))
+            (redefines
+              (qualified_name
+                (identifier)))
+            (references
+              (qualified_name
+                (identifier)))
+            (crosses
+              (qualified_name
+                (identifier))))
+          (enumeration_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier)))
+            (value_part
+              (qualified_name
+                (identifier)
+                (identifier))))
+          (metadata_usage
+            (qualified_name
+              (identifier))
+            (qualified_name
+              (identifier)))
+          (metadata_usage
+            (qualified_name
+              (identifier))
+            (body
+              (reference_usage
+                (identifier)
+                (value_part
+                  (literal_integer)))))
+          (part_usage
+            (prefix_metadata
+              (qualified_name
+                (identifier)))
+            (identifier))
+          (part_usage
+            (unrestricted_name)
+            (unrestricted_name)
+            (typed_by
+              (qualified_name
+                (identifier))))))
+      (part_usage
+        (identifier)
+        (multiplicity_range
+          (literal_infinity))
+        (typed_by
+          (qualified_name
+            (identifier))))
+      (reference_usage
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier))))
+      (reference_usage
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier))))
+      (part_usage
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier)))
+        (body
+          (variant_member
+            (reference_usage
+              (identifier)))
+          (variant_member
+            (part_usage
+              (identifier))))))))

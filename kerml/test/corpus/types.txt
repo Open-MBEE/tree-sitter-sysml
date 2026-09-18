@@ -1,0 +1,239 @@
+================================================================================
+Classifiers and data types
+================================================================================
+
+package Types {
+    abstract classifier Thing;
+    class Vehicle specializes Thing, Base::Anything;
+    datatype Speed :> ScalarValues::Real;
+    struct Frame { feature x : Speed; }
+    assoc Owns { end owner : Person; end pet : Animal; }
+    assoc struct Link;
+    metaclass SemanticMetadata;
+    type T disjoint from U unions A, B;
+    classifier all C;
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (package
+    (identifier)
+    (body
+      (classifier
+        (identifier))
+      (class
+        (identifier)
+        (specializes
+          (qualified_name
+            (identifier))
+          (qualified_name
+            (identifier)
+            (identifier))))
+      (data_type
+        (identifier)
+        (specializes
+          (qualified_name
+            (identifier)
+            (identifier))))
+      (structure
+        (identifier)
+        (body
+          (feature
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))))
+      (association
+        (identifier)
+        (body
+          (feature
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (feature
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))))
+      (association_structure
+        (identifier))
+      (metaclass
+        (identifier))
+      (type
+        (identifier)
+        (disjoint_from
+          (qualified_name
+            (identifier)))
+        (unions
+          (qualified_name
+            (identifier))
+          (qualified_name
+            (identifier))))
+      (classifier
+        (identifier)))))
+
+================================================================================
+Behaviors, functions and predicates
+================================================================================
+
+package Behaviors {
+    behavior Drive { in speed : Real; step accelerate : Accelerate; }
+    function Add { in x : Real; in y : Real; return : Real = x + y; }
+    predicate IsPositive { in x : Real; x > 0 }
+    interaction Exchange;
+    abstract function Average { in xs : Real[*]; return : Real; }
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (package
+    (identifier)
+    (body
+      (behavior
+        (identifier)
+        (body
+          (feature
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (step
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))))
+      (function
+        (identifier)
+        (body
+          (feature
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (feature
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (return_member
+            (feature
+              (typed_by
+                (qualified_name
+                  (identifier)))
+              (value_part
+                (binary_expression
+                  (qualified_name
+                    (identifier))
+                  (qualified_name
+                    (identifier))))))))
+      (predicate
+        (identifier)
+        (body
+          (feature
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (result_expression_member
+            (binary_expression
+              (qualified_name
+                (identifier))
+              (literal_integer)))))
+      (interaction
+        (identifier))
+      (function
+        (identifier)
+        (body
+          (feature
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier)))
+            (multiplicity_range
+              (literal_infinity)))
+          (return_member
+            (feature
+              (typed_by
+                (qualified_name
+                  (identifier))))))))))
+
+================================================================================
+Relationships
+================================================================================
+
+package Relationships {
+    specialization Sub subtype Vehicle specializes Thing;
+    subclassifier Car :> Vehicle;
+    typing wheelTyping typed by Wheel;
+    subset wheelSubset subsets wheels;
+    redefinition mass redefines Thing::mass;
+    conjugation Conj conjugate Port ~ Base;
+    disjoining disjoint Car from Truck;
+    inverting inverse owner of pet;
+    featuring of x by Vehicle;
+    dependency D from Car to Wheel;
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (package
+    (identifier)
+    (body
+      (specialization
+        (identifier)
+        (qualified_name
+          (identifier))
+        (qualified_name
+          (identifier)))
+      (subclassification
+        (qualified_name
+          (identifier))
+        (qualified_name
+          (identifier)))
+      (feature_typing
+        (qualified_name
+          (identifier))
+        (qualified_name
+          (identifier)))
+      (subsetting
+        (qualified_name
+          (identifier))
+        (qualified_name
+          (identifier)))
+      (redefinition
+        (qualified_name
+          (identifier))
+        (qualified_name
+          (identifier)
+          (identifier)))
+      (conjugation
+        (identifier)
+        (qualified_name
+          (identifier))
+        (qualified_name
+          (identifier)))
+      (disjoining
+        (qualified_name
+          (identifier))
+        (qualified_name
+          (identifier)))
+      (feature_inverting
+        (qualified_name
+          (identifier))
+        (qualified_name
+          (identifier)))
+      (type_featuring
+        (qualified_name
+          (identifier))
+        (qualified_name
+          (identifier)))
+      (dependency
+        (identifier)
+        (qualified_name
+          (identifier))
+        (qualified_name
+          (identifier))))))

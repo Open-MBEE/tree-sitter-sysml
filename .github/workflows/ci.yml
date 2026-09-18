@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [develop, main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Generated parsers are up to date
+        run: |
+          npm run generate
+          git diff --exit-code -- kerml/src sysml/src
+      - run: npm run build
+      - run: npm test
+      - run: npm run check-queries
+      - uses: actions/checkout@v4
+        with:
+          repository: Open-MBEE/OpenSysML
+          path: OpenSysML
+      - name: Parse the OpenSysML standard library and examples
+        run: |
+          script/parse-coverage.sh OpenSysML/examples "OpenSysML/internal/core/libs/stdlib"

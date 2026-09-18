@@ -1,0 +1,284 @@
+================================================================================
+Features with specialization parts
+================================================================================
+
+package Features {
+    feature wheels : Wheel[4] ordered nonunique;
+    composite feature engine : Engine[1];
+    derived feature mass : Real = 1200.0;
+    private feature <m> total :> mass :>> Thing::mass;
+    end feature owner : Person[0..1];
+    feature chain path chains a.b.c;
+    var feature speed : Real default 0;
+    const feature id : String;
+    feature featured by Vehicle;
+    portion feature slice : Vehicle;
+    feature typed by Wheel references other crosses a.b;
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (package
+    (identifier)
+    (body
+      (feature
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier)))
+        (multiplicity_range
+          (literal_integer)))
+      (feature
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier)))
+        (multiplicity_range
+          (literal_integer)))
+      (feature
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier)))
+        (value_part
+          (literal_real)))
+      (visibility)
+      (feature
+        (identifier)
+        (identifier)
+        (subsets
+          (qualified_name
+            (identifier)))
+        (redefines
+          (qualified_name
+            (identifier)
+            (identifier))))
+      (feature
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier)))
+        (multiplicity_range
+          (binary_expression
+            (literal_integer)
+            (literal_integer))))
+      (feature
+        (identifier)
+        (chains
+          (feature_chain
+            (qualified_name
+              (identifier))
+            (qualified_name
+              (identifier))
+            (qualified_name
+              (identifier)))))
+      (feature
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier)))
+        (value_part
+          (literal_integer)))
+      (feature
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier))))
+      (feature
+        (featured_by
+          (qualified_name
+            (identifier))))
+      (feature
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier))))
+      (feature
+        (typed_by
+          (qualified_name
+            (identifier)))
+        (references
+          (qualified_name
+            (identifier)))
+        (crosses
+          (feature_chain
+            (qualified_name
+              (identifier))
+            (qualified_name
+              (identifier))))))))
+
+================================================================================
+Connectors, bindings, successions and flows
+================================================================================
+
+package Connectors {
+    connector wire : Wire from a.port to b.port;
+    binding b of a = b;
+    binding of x = y;
+    succession s first a then b;
+    succession first a then b;
+    flow f from a.out to b.in;
+    flow of Fuel from tank.out to engine.in;
+    succession flow from a.x to b.y;
+    connector all from a to b;
+    inv positive { x > 0 }
+    inv false negative { x < 0 }
+    multiplicity m [1..*];
+    expr e { in x : Real; x * 2 }
+    bool b2 { x }
+    step drive : Drive;
+    member feature m2;
+    return : Real;
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (package
+    (identifier)
+    (body
+      (connector
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier)))
+        (connector_end
+          (feature_chain
+            (qualified_name
+              (identifier))
+            (qualified_name
+              (identifier))))
+        (connector_end
+          (feature_chain
+            (qualified_name
+              (identifier))
+            (qualified_name
+              (identifier)))))
+      (binding_connector
+        (identifier)
+        (connector_end
+          (qualified_name
+            (identifier)))
+        (connector_end
+          (qualified_name
+            (identifier))))
+      (binding_connector
+        (connector_end
+          (qualified_name
+            (identifier)))
+        (connector_end
+          (qualified_name
+            (identifier))))
+      (succession
+        (identifier)
+        (connector_end
+          (qualified_name
+            (identifier)))
+        (connector_end
+          (qualified_name
+            (identifier))))
+      (succession
+        (connector_end
+          (qualified_name
+            (identifier)))
+        (connector_end
+          (qualified_name
+            (identifier))))
+      (flow
+        (identifier)
+        (feature_chain
+          (qualified_name
+            (identifier))
+          (qualified_name
+            (identifier)))
+        (feature_chain
+          (qualified_name
+            (identifier))
+          (qualified_name
+            (identifier))))
+      (flow
+        (payload
+          (qualified_name
+            (identifier)))
+        (feature_chain
+          (qualified_name
+            (identifier))
+          (qualified_name
+            (identifier)))
+        (feature_chain
+          (qualified_name
+            (identifier))
+          (qualified_name
+            (identifier))))
+      (succession_flow
+        (feature_chain
+          (qualified_name
+            (identifier))
+          (qualified_name
+            (identifier)))
+        (feature_chain
+          (qualified_name
+            (identifier))
+          (qualified_name
+            (identifier))))
+      (connector
+        (connector_end
+          (qualified_name
+            (identifier)))
+        (connector_end
+          (qualified_name
+            (identifier))))
+      (invariant
+        (identifier)
+        (body
+          (result_expression_member
+            (binary_expression
+              (qualified_name
+                (identifier))
+              (literal_integer)))))
+      (invariant
+        (identifier)
+        (body
+          (result_expression_member
+            (binary_expression
+              (qualified_name
+                (identifier))
+              (literal_integer)))))
+      (multiplicity
+        (identifier)
+        (multiplicity_range
+          (binary_expression
+            (literal_integer)
+            (literal_infinity))))
+      (expression_feature
+        (identifier)
+        (body
+          (feature
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (result_expression_member
+            (binary_expression
+              (qualified_name
+                (identifier))
+              (literal_integer)))))
+      (boolean_expression
+        (identifier)
+        (body
+          (result_expression_member
+            (qualified_name
+              (identifier)))))
+      (step
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier))))
+      (feature
+        (identifier))
+      (return_member
+        (feature
+          (typed_by
+            (qualified_name
+              (identifier))))))))

@@ -1,0 +1,117 @@
+================================================================================
+Packages, imports and aliases
+================================================================================
+
+standard library package Base {
+    private import ScalarValues::*;
+    import Occurrences::**;
+    alias <a> Anything for Base::Anything;
+    package Nested;
+    namespace N { doc /* about N */ }
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (library_package
+    (identifier)
+    (body
+      (visibility)
+      (import
+        (qualified_name
+          (identifier)))
+      (import
+        (qualified_name
+          (identifier)))
+      (alias_member
+        (identifier)
+        (identifier)
+        (qualified_name
+          (identifier)
+          (identifier)))
+      (package
+        (identifier))
+      (namespace
+        (identifier)
+        (body
+          (documentation
+            (regular_comment)))))))
+
+================================================================================
+Comments and documentation
+================================================================================
+
+package P {
+    comment about P /* attached */
+    doc /* documented */
+    comment C locale "en" /* localized */
+    rep language "sysml" /* part def X; */
+    // line note
+    //* block
+       note */
+    /* regular comment */
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (package
+    (identifier)
+    (body
+      (comment
+        (qualified_name
+          (identifier))
+        (regular_comment))
+      (documentation
+        (regular_comment))
+      (comment
+        (identifier)
+        (string)
+        (regular_comment))
+      (textual_representation
+        (string)
+        (regular_comment))
+      (line_note)
+      (block_note)
+      (comment
+        (regular_comment)))))
+
+================================================================================
+Element filters and metadata
+================================================================================
+
+package Filtered {
+    import Kernel::*[@Safety];
+    filter @Safety;
+    #safe metadata Safety about Filtered;
+    @Safety;
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (package
+    (identifier)
+    (body
+      (import
+        (qualified_name
+          (identifier))
+        (filter_package_member
+          (classification_expression
+            (qualified_name
+              (identifier)))))
+      (element_filter_member
+        (classification_expression
+          (qualified_name
+            (identifier))))
+      (metadata_feature
+        (prefix_metadata
+          (qualified_name
+            (identifier)))
+        (qualified_name
+          (identifier))
+        (qualified_name
+          (identifier)))
+      (metadata_feature
+        (qualified_name
+          (identifier))))))
