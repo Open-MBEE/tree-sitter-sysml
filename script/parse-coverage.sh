@@ -7,7 +7,7 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
-TREE_SITTER=${TREE_SITTER:-./node_modules/.bin/tree-sitter}
+. script/tree-sitter-env.sh
 BATCH=500
 
 list=0
@@ -25,10 +25,12 @@ status=0
 report() {
   local ext="$1"
   shift
+  local roots=() r
+  for r in "$@"; do roots+=("$(realpath "$r")"); done
   local files=()
   while IFS= read -r -d '' f; do
     files+=("$f")
-  done < <(find "$@" -type f -name "*.$ext" -print0 | sort -z)
+  done < <(find "${roots[@]}" -type f -name "*.$ext" -print0 | sort -z)
   if [ ${#files[@]} -eq 0 ]; then
     echo "$ext: no files"
     return
@@ -36,7 +38,7 @@ report() {
   local total=0 ok=0 failed=0 i
   for ((i = 0; i < ${#files[@]}; i += BATCH)); do
     local out
-    out=$("$TREE_SITTER" parse -q --stat --scope "source.$ext" "${files[@]:i:BATCH}" 2>&1) || true
+    out=$(cd "$ext" && "$TREE_SITTER" parse -q --stat "${files[@]:i:BATCH}" 2>&1) || true
     if [ "$list" -eq 1 ]; then
       printf '%s\n' "$out" | grep -E '\((ERROR|MISSING)' | sed -E 's/[[:space:]]+Parse:.*(\((ERROR|MISSING)[^)]*\)).*/  \1/' || true
     fi
