@@ -38,16 +38,16 @@
   "$" @variable.builtin)
 
 (prefix_metadata
-  (qualified_name) @attribute)
+  (qualified_name (_) @attribute .))
 
 (metadata_usage
-  type: (qualified_name) @attribute)
+  type: (qualified_name (_) @attribute .))
 
 (alias_member
   name: (_) @module)
 
 (import
-  (qualified_name) @module)
+  (qualified_name (_) @module .))
 
 ; Namespaces and definitions
 
@@ -127,33 +127,47 @@
 
 ; Type references
 
-(typed_by type: (qualified_name) @type)
+(typed_by type: (qualified_name (_) @type .))
 
-(typed_by type: (feature_chain (qualified_name) @type .))
+(typed_by type: (feature_chain (qualified_name (_) @type .) .))
 
-(conjugated_port_reference (qualified_name) @type)
+(conjugated_port_reference (qualified_name (_) @type .))
 
-(specializes (qualified_name) @type)
+(specializes (qualified_name (_) @type .))
 
-(subsets (qualified_name) @variable.member)
+(subsets (qualified_name (_) @variable.member .))
 
-(redefines (qualified_name) @variable.member)
+(redefines (qualified_name (_) @variable.member .))
 
-(references (qualified_name) @variable.member)
+(references (qualified_name (_) @variable.member .))
 
-(crosses (qualified_name) @variable.member)
+(crosses (qualified_name (_) @variable.member .))
 
-(unions (qualified_name) @type)
+(unions (qualified_name (_) @type .))
 
-(intersects (qualified_name) @type)
+(intersects (qualified_name (_) @type .))
 
-(differences (qualified_name) @type)
+(differences (qualified_name (_) @type .))
 
-(classification_expression type: (qualified_name) @type)
+(classification_expression type: (qualified_name (_) @type .))
 
-(extent_expression type: (qualified_name) @type)
+(extent_expression type: (qualified_name (_) @type .))
 
 ; Expressions
+
+(constructor_expression
+  (qualified_name (_) @type .))
+
+(named_argument
+  name: (qualified_name (_) @variable.parameter .))
+
+(feature_chain_expression
+  feature: (qualified_name (identifier) @variable.member .))
+
+(feature_chain
+  (qualified_name (identifier) @variable.member .))
+
+; Calls
 
 (invocation_expression
   function: (qualified_name (identifier) @function.call .))
@@ -163,18 +177,6 @@
 
 (arrow_expression
   function: (qualified_name (identifier) @function.call .))
-
-(constructor_expression
-  (qualified_name) @type)
-
-(named_argument
-  name: (qualified_name) @variable.parameter)
-
-(feature_chain_expression
-  feature: (qualified_name (identifier) @variable.member .))
-
-(feature_chain
-  (qualified_name (identifier) @variable.member .))
 
 ; Operators
 
