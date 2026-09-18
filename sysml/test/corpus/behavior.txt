@@ -1,0 +1,869 @@
+================================================================================
+Actions
+================================================================================
+
+action def Drive {
+    in speed : Real;
+    first start;
+    action accelerate : Accelerate { in s = speed; }
+    then action brake : Brake;
+    action a2 : Accelerate {
+        in s : Real;
+        out result : Real;
+    }
+    perform action a3 : Accelerate;
+    perform a4;
+    perform action a5 : Accelerate;
+    succession a3 then a4;
+    then a5;
+    accept sig : Signal via port;
+    action rx accept s : Signal via port;
+    accept when x > 0;
+    accept at t;
+    accept after 1 [s];
+    send Signal() via port to target;
+    action tx send s to target;
+    assign x := x + 1;
+    action asg assign x := 1;
+    if x > 0 { action a; } else if x < 0 { action b; } else { action c; }
+    while x < 10 { assign x := x + 1; }
+    loop { action step; } until x > 10;
+    for i in 1..10 { action it; }
+    for i : Integer in xs { action it2; }
+    decide; if x then a; else b;
+    decide d;
+    merge m;
+    join j;
+    fork f;
+    then done;
+    terminate;
+    terminate this;
+    action def Nested;
+    bind a.x = b.y;
+    flow from a.out to b.in;
+    succession flow from a.out to b.in;
+    then merge m2;
+    action a6 : Accelerate; then action a7 : Accelerate { in s = 1; }
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (action_definition
+    (identifier)
+    (body
+      (reference_usage
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier))))
+      (initial_node_member
+        (qualified_name
+          (identifier)))
+      (action_usage
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier)))
+        (body
+          (reference_usage
+            (identifier)
+            (value_part
+              (qualified_name
+                (identifier))))))
+      (empty_succession)
+      (action_usage
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier))))
+      (action_usage
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier)))
+        (body
+          (reference_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (reference_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))))
+      (perform_action_usage
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier))))
+      (perform_action_usage
+        (qualified_name
+          (identifier)))
+      (perform_action_usage
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier))))
+      (succession_as_usage
+        (connector_end
+          (qualified_name
+            (identifier)))
+        (connector_end
+          (qualified_name
+            (identifier))))
+      (target_succession
+        (connector_end
+          (qualified_name
+            (identifier))))
+      (accept_node
+        (payload_parameter
+          (payload
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier)))))
+        (qualified_name
+          (identifier)))
+      (accept_node
+        (identifier)
+        (payload_parameter
+          (payload
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier)))))
+        (qualified_name
+          (identifier)))
+      (accept_node
+        (payload_parameter
+          (trigger_expression
+            (binary_expression
+              (qualified_name
+                (identifier))
+              (literal_integer)))))
+      (accept_node
+        (payload_parameter
+          (trigger_expression
+            (qualified_name
+              (identifier)))))
+      (accept_node
+        (payload_parameter
+          (trigger_expression
+            (index_expression
+              (literal_integer)
+              (qualified_name
+                (identifier))))))
+      (send_node
+        (invocation_expression
+          (qualified_name
+            (identifier))
+          (argument_list))
+        (qualified_name
+          (identifier))
+        (qualified_name
+          (identifier)))
+      (send_node
+        (identifier)
+        (qualified_name
+          (identifier))
+        (qualified_name
+          (identifier)))
+      (assignment_node
+        (qualified_name
+          (identifier))
+        (binary_expression
+          (qualified_name
+            (identifier))
+          (literal_integer)))
+      (assignment_node
+        (identifier)
+        (qualified_name
+          (identifier))
+        (literal_integer))
+      (if_node
+        (binary_expression
+          (qualified_name
+            (identifier))
+          (literal_integer))
+        (action_body_parameter
+          (body
+            (action_usage
+              (identifier))))
+        (if_node
+          (binary_expression
+            (qualified_name
+              (identifier))
+            (literal_integer))
+          (action_body_parameter
+            (body
+              (action_usage
+                (identifier))))
+          (action_body_parameter
+            (body
+              (action_usage
+                (identifier))))))
+      (while_loop_node
+        (binary_expression
+          (qualified_name
+            (identifier))
+          (literal_integer))
+        (action_body_parameter
+          (body
+            (assignment_node
+              (qualified_name
+                (identifier))
+              (binary_expression
+                (qualified_name
+                  (identifier))
+                (literal_integer))))))
+      (while_loop_node
+        (action_body_parameter
+          (body
+            (action_usage
+              (identifier))))
+        (binary_expression
+          (qualified_name
+            (identifier))
+          (literal_integer)))
+      (for_loop_node
+        (for_variable
+          (identifier))
+        (binary_expression
+          (literal_integer)
+          (literal_integer))
+        (action_body_parameter
+          (body
+            (action_usage
+              (identifier)))))
+      (for_loop_node
+        (for_variable
+          (identifier)
+          (typed_by
+            (qualified_name
+              (identifier))))
+        (qualified_name
+          (identifier))
+        (action_body_parameter
+          (body
+            (action_usage
+              (identifier)))))
+      (decision_node)
+      (target_transition
+        (guard
+          (qualified_name
+            (identifier)))
+        (connector_end
+          (qualified_name
+            (identifier))))
+      (default_target_succession
+        (connector_end
+          (qualified_name
+            (identifier))))
+      (decision_node
+        (identifier))
+      (merge_node
+        (identifier))
+      (join_node
+        (identifier))
+      (fork_node
+        (identifier))
+      (target_succession
+        (connector_end
+          (qualified_name
+            (identifier))))
+      (terminate_node)
+      (terminate_node
+        (qualified_name
+          (identifier)))
+      (action_definition
+        (identifier))
+      (binding_connector_as_usage
+        (connector_end
+          (feature_chain
+            (qualified_name
+              (identifier))
+            (qualified_name
+              (identifier))))
+        (connector_end
+          (feature_chain
+            (qualified_name
+              (identifier))
+            (qualified_name
+              (identifier)))))
+      (flow_usage
+        (feature_chain
+          (qualified_name
+            (identifier))
+          (qualified_name
+            (identifier)))
+        (feature_chain
+          (qualified_name
+            (identifier))
+          (qualified_name
+            (identifier))))
+      (succession_flow_usage
+        (feature_chain
+          (qualified_name
+            (identifier))
+          (qualified_name
+            (identifier)))
+        (feature_chain
+          (qualified_name
+            (identifier))
+          (qualified_name
+            (identifier))))
+      (empty_succession)
+      (merge_node
+        (identifier))
+      (action_usage
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier))))
+      (empty_succession)
+      (action_usage
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier)))
+        (body
+          (reference_usage
+            (identifier)
+            (value_part
+              (literal_integer))))))))
+
+================================================================================
+States
+================================================================================
+
+state def Machine {
+    entry; then off;
+    entry action init;
+    do action running;
+    exit action cleanup;
+    state off {
+        entry assign x := 0;
+        do send Signal() to target;
+        transition on when x > 0 then on;
+        accept Signal then on;
+    }
+    state on parallel {
+        state a;
+        state b;
+    }
+    transition off_to_on
+        first off
+        accept sig : Signal via port
+        if x > 0
+        do action react
+        then on;
+    transition first on then off;
+    transition on then off;
+    exhibit state exhibited : Machine;
+    exhibit machine;
+    choice c;
+    junction j;
+    history h;
+    shallow history sh;
+    deep history dh;
+    defer Signal, Other;
+    state s2 : Machine parallel { entry; then a; }
+    then done;
+    state x { entry action init2; do action run2 { assign y := 1; } }
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_definition
+    (identifier)
+    (body
+      (state_subaction)
+      (target_succession
+        (connector_end
+          (qualified_name
+            (identifier))))
+      (state_subaction
+        (identifier))
+      (state_subaction
+        (identifier))
+      (state_subaction
+        (identifier))
+      (state_usage
+        (identifier)
+        (body
+          (state_subaction
+            (qualified_name
+              (identifier))
+            (literal_integer))
+          (state_subaction
+            (invocation_expression
+              (qualified_name
+                (identifier))
+              (argument_list))
+            (qualified_name
+              (identifier)))
+          (transition_usage
+            (qualified_name
+              (identifier))
+            (trigger
+              (binary_expression
+                (qualified_name
+                  (identifier))
+                (literal_integer)))
+            (connector_end
+              (qualified_name
+                (identifier))))
+          (target_transition
+            (trigger
+              (payload_parameter
+                (payload
+                  (qualified_name
+                    (identifier)))))
+            (connector_end
+              (qualified_name
+                (identifier))))))
+      (state_usage
+        (identifier)
+        (body
+          (state_usage
+            (identifier))
+          (state_usage
+            (identifier))))
+      (transition_usage
+        (identifier)
+        (qualified_name
+          (identifier))
+        (trigger
+          (payload_parameter
+            (payload
+              (identifier)
+              (typed_by
+                (qualified_name
+                  (identifier)))))
+          (qualified_name
+            (identifier)))
+        (guard
+          (binary_expression
+            (qualified_name
+              (identifier))
+            (literal_integer)))
+        (effect
+          (identifier))
+        (connector_end
+          (qualified_name
+            (identifier))))
+      (transition_usage
+        (qualified_name
+          (identifier))
+        (connector_end
+          (qualified_name
+            (identifier))))
+      (transition_usage
+        (qualified_name
+          (identifier))
+        (connector_end
+          (qualified_name
+            (identifier))))
+      (exhibit_state_usage
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier))))
+      (exhibit_state_usage
+        (qualified_name
+          (identifier)))
+      (pseudostate
+        (identifier))
+      (pseudostate
+        (identifier))
+      (pseudostate
+        (identifier))
+      (pseudostate
+        (identifier))
+      (pseudostate
+        (identifier))
+      (defer_member
+        (qualified_name
+          (identifier))
+        (qualified_name
+          (identifier)))
+      (state_usage
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier)))
+        (body
+          (state_subaction)
+          (target_succession
+            (connector_end
+              (qualified_name
+                (identifier))))))
+      (target_succession
+        (connector_end
+          (qualified_name
+            (identifier))))
+      (state_usage
+        (identifier)
+        (body
+          (state_subaction
+            (identifier))
+          (state_subaction
+            (identifier)
+            (body
+              (assignment_node
+                (qualified_name
+                  (identifier))
+                (literal_integer)))))))))
+
+================================================================================
+Requirements, cases, views
+================================================================================
+
+package Reqs {
+    requirement def MassReq {
+        doc /* mass */
+        subject vehicle : Vehicle;
+        attribute maxMass : MassValue;
+        assume constraint { vehicle.mass > 0 }
+        require constraint massLimit { vehicle.mass <= maxMass }
+        require massLimit2;
+        actor driver : Person;
+        stakeholder owner : Person;
+        frame concern cost : Cost;
+        frame cost2;
+    }
+    requirement massReq : MassReq { subject vehicle = car; }
+    satisfy massReq by car;
+    satisfy requirement r2 : MassReq by car;
+    assert satisfy massReq by car;
+    assert not satisfy massReq by car;
+    verify massReq;
+    verify requirement r3 : MassReq;
+    assert constraint c { x > 0 }
+    assert not constraint c2 { x > 0 }
+    constraint c3 : Positive { in x = 1; }
+    constraint { x > 0 }
+    concern cost : Cost;
+    case c : Case { subject s; objective { doc /* aim */ } }
+    analysis a : Analysis { subject s; objective obj : Req; return : Real; }
+    verification v : Verify { subject s; objective { verify massReq; } }
+    use case u : Use { actor a1; include use case u2 : Use; include u3; }
+    view v1 : V {
+        expose Reqs::*;
+        expose a::**[@Safety];
+        filter @Safety;
+        render r : R;
+        render asTree;
+    }
+    viewpoint vp : VP { require constraint { x } frame cost; }
+    rendering r : R;
+    allocation a2 : Alloc allocate a to b;
+    calc c4 : Add { in x = 1; in y = 2; }
+    calc c5 = Add(1, 2);
+    calc { x + y }
+    attribute result = c5.result;
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (package
+    (identifier)
+    (body
+      (requirement_definition
+        (identifier)
+        (body
+          (documentation
+            (regular_comment))
+          (subject_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (attribute_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (requirement_constraint_usage
+            (body
+              (result_expression_member
+                (binary_expression
+                  (feature_chain_expression
+                    (qualified_name
+                      (identifier))
+                    (qualified_name
+                      (identifier)))
+                  (literal_integer)))))
+          (requirement_constraint_usage
+            (identifier)
+            (body
+              (result_expression_member
+                (binary_expression
+                  (feature_chain_expression
+                    (qualified_name
+                      (identifier))
+                    (qualified_name
+                      (identifier)))
+                  (qualified_name
+                    (identifier))))))
+          (requirement_constraint_usage
+            (qualified_name
+              (identifier)))
+          (actor_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (stakeholder_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (framed_concern_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (framed_concern_usage
+            (qualified_name
+              (identifier)))))
+      (requirement_usage
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier)))
+        (body
+          (subject_usage
+            (identifier)
+            (value_part
+              (qualified_name
+                (identifier))))))
+      (satisfy_requirement_usage
+        (qualified_name
+          (identifier))
+        (qualified_name
+          (identifier)))
+      (satisfy_requirement_usage
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier)))
+        (qualified_name
+          (identifier)))
+      (satisfy_requirement_usage
+        (qualified_name
+          (identifier))
+        (qualified_name
+          (identifier)))
+      (satisfy_requirement_usage
+        (qualified_name
+          (identifier))
+        (qualified_name
+          (identifier)))
+      (requirement_verification_usage
+        (qualified_name
+          (identifier)))
+      (requirement_verification_usage
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier))))
+      (assert_constraint_usage
+        (identifier)
+        (body
+          (result_expression_member
+            (binary_expression
+              (qualified_name
+                (identifier))
+              (literal_integer)))))
+      (assert_constraint_usage
+        (identifier)
+        (body
+          (result_expression_member
+            (binary_expression
+              (qualified_name
+                (identifier))
+              (literal_integer)))))
+      (constraint_usage
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier)))
+        (body
+          (reference_usage
+            (identifier)
+            (value_part
+              (literal_integer)))))
+      (constraint_usage
+        (body
+          (result_expression_member
+            (binary_expression
+              (qualified_name
+                (identifier))
+              (literal_integer)))))
+      (concern_usage
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier))))
+      (case_usage
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier)))
+        (body
+          (subject_usage
+            (identifier))
+          (objective_requirement_usage
+            (body
+              (documentation
+                (regular_comment))))))
+      (analysis_case_usage
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier)))
+        (body
+          (subject_usage
+            (identifier))
+          (objective_requirement_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (return_parameter
+            (reference_usage
+              (typed_by
+                (qualified_name
+                  (identifier)))))))
+      (verification_case_usage
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier)))
+        (body
+          (subject_usage
+            (identifier))
+          (objective_requirement_usage
+            (body
+              (requirement_verification_usage
+                (qualified_name
+                  (identifier)))))))
+      (use_case_usage
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier)))
+        (body
+          (actor_usage
+            (identifier))
+          (include_use_case_usage
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (include_use_case_usage
+            (qualified_name
+              (identifier)))))
+      (view_usage
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier)))
+        (body
+          (expose
+            (qualified_name
+              (identifier)))
+          (expose
+            (qualified_name
+              (identifier))
+            (filter_package_member
+              (classification_expression
+                (qualified_name
+                  (identifier)))))
+          (element_filter_member
+            (classification_expression
+              (qualified_name
+                (identifier))))
+          (view_rendering_usage
+            (qualified_name
+              (identifier))
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (view_rendering_usage
+            (qualified_name
+              (identifier)))))
+      (viewpoint_usage
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier)))
+        (body
+          (requirement_constraint_usage
+            (body
+              (result_expression_member
+                (qualified_name
+                  (identifier)))))
+          (framed_concern_usage
+            (qualified_name
+              (identifier)))))
+      (rendering_usage
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier))))
+      (allocation_usage
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier)))
+        (connector_end
+          (qualified_name
+            (identifier)))
+        (connector_end
+          (qualified_name
+            (identifier))))
+      (calculation_usage
+        (identifier)
+        (typed_by
+          (qualified_name
+            (identifier)))
+        (body
+          (reference_usage
+            (identifier)
+            (value_part
+              (literal_integer)))
+          (reference_usage
+            (identifier)
+            (value_part
+              (literal_integer)))))
+      (calculation_usage
+        (identifier)
+        (value_part
+          (invocation_expression
+            (qualified_name
+              (identifier))
+            (argument_list
+              (literal_integer)
+              (literal_integer)))))
+      (calculation_usage
+        (body
+          (result_expression_member
+            (binary_expression
+              (qualified_name
+                (identifier))
+              (qualified_name
+                (identifier))))))
+      (attribute_usage
+        (identifier)
+        (value_part
+          (feature_chain_expression
+            (qualified_name
+              (identifier))
+            (qualified_name
+              (identifier))))))))

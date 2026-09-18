@@ -1,0 +1,34 @@
+{
+  "name": "tree-sitter-sysml",
+  "version": "0.1.0",
+  "description": "KerML and SysML v2 grammars for tree-sitter",
+  "repository": "github:Open-MBEE/tree-sitter-sysml",
+  "license": "Apache-2.0",
+  "author": "Open-MBEE",
+  "keywords": [
+    "tree-sitter",
+    "parser",
+    "sysml",
+    "kerml",
+    "sysml-v2"
+  ],
+  "files": [
+    "common/**",
+    "kerml/grammar.js",
+    "kerml/src/**",
+    "sysml/grammar.js",
+    "sysml/src/**",
+    "queries/**",
+    "tree-sitter.json"
+  ],
+  "scripts": {
+    "generate": "cd kerml && tree-sitter generate && cd ../sysml && tree-sitter generate",
+    "build": "cd kerml && tree-sitter build -o kerml.so && cd ../sysml && tree-sitter build -o sysml.so",
+    "test": "cd kerml && tree-sitter test && cd ../sysml && tree-sitter test",
+    "coverage": "script/parse-coverage.sh",
+    "check-queries": "script/check-queries.sh"
+  },
+  "devDependencies": {
+    "tree-sitter-cli": "^0.25.10"
+  }
+}

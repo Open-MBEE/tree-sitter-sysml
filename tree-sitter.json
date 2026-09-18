@@ -1,0 +1,55 @@
+{
+  "grammars": [
+    {
+      "name": "kerml",
+      "camelcase": "KerML",
+      "title": "KerML",
+      "scope": "source.kerml",
+      "path": "kerml",
+      "file-types": [
+        "kerml"
+      ],
+      "highlights": "queries/kerml/highlights.scm",
+      "injections": "queries/kerml/injections.scm",
+      "locals": "queries/kerml/locals.scm",
+      "tags": "queries/kerml/tags.scm",
+      "injection-regex": "^kerml$"
+    },
+    {
+      "name": "sysml",
+      "camelcase": "SysML",
+      "title": "SysML v2",
+      "scope": "source.sysml",
+      "path": "sysml",
+      "file-types": [
+        "sysml"
+      ],
+      "highlights": "queries/sysml/highlights.scm",
+      "injections": "queries/sysml/injections.scm",
+      "locals": "queries/sysml/locals.scm",
+      "tags": "queries/sysml/tags.scm",
+      "injection-regex": "^sysml$"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "Apache-2.0",
+    "description": "KerML and SysML v2 grammars for tree-sitter",
+    "authors": [
+      {
+        "name": "Open-MBEE"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/Open-MBEE/tree-sitter-sysml"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": false,
+    "node": false,
+    "python": false,
+    "rust": false,
+    "swift": false
+  }
+}

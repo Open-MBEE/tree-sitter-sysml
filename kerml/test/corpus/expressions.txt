@@ -1,0 +1,398 @@
+================================================================================
+Operators and precedence
+================================================================================
+
+package Expressions {
+    feature a = 1 + 2 * 3 ** 2 - -4 / 5 % 2;
+    feature b = x < 1 and y >= 2 or not z xor w implies v;
+    feature c = if x > 0 ? 1 else 2;
+    feature d = a ?? b;
+    feature e = x == y & y != z | z === w & w !== v;
+    feature f = 1..10;
+    feature g = x istype Real and y hastype Integer and z @ Meta and w as Real;
+    feature h = all Vehicle;
+    feature i = x.y.z;
+    feature j = x->select { in v; v > 0 }->size();
+    feature k = list#(1);
+    feature l = list[1];
+    feature m = new Point(1, 2);
+    feature n = f(x = 1, y = 2);
+    feature o = (1, 2, 3);
+    feature p = ();
+    feature q = null;
+    feature r = "string with \" escape";
+    feature s = true or false;
+    feature t = 1.5e10 + .5 + 3e-2;
+    feature u = *;
+    feature v = x.?{ in item; item > 0 };
+    feature w = x.{ in item; item + 1 };
+    feature y2 = x.metadata;
+    feature z2 = A::B::c;
+    feature aa = $::Base::Anything;
+    feature bb = 'unrestricted name' + 'other one';
+    feature cc = x @@ Meta meta Meta2;
+    feature dd = -x ^ 2;
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (package
+    (identifier)
+    (body
+      (feature
+        (identifier)
+        (value_part
+          (binary_expression
+            (binary_expression
+              (literal_integer)
+              (binary_expression
+                (literal_integer)
+                (binary_expression
+                  (literal_integer)
+                  (literal_integer))))
+            (binary_expression
+              (binary_expression
+                (unary_expression
+                  (literal_integer))
+                (literal_integer))
+              (literal_integer)))))
+      (feature
+        (identifier)
+        (value_part
+          (binary_expression
+            (binary_expression
+              (binary_expression
+                (binary_expression
+                  (qualified_name
+                    (identifier))
+                  (literal_integer))
+                (binary_expression
+                  (qualified_name
+                    (identifier))
+                  (literal_integer)))
+              (binary_expression
+                (unary_expression
+                  (qualified_name
+                    (identifier)))
+                (qualified_name
+                  (identifier))))
+            (qualified_name
+              (identifier)))))
+      (feature
+        (identifier)
+        (value_part
+          (conditional_expression
+            (binary_expression
+              (qualified_name
+                (identifier))
+              (literal_integer))
+            (literal_integer)
+            (literal_integer))))
+      (feature
+        (identifier)
+        (value_part
+          (binary_expression
+            (qualified_name
+              (identifier))
+            (qualified_name
+              (identifier)))))
+      (feature
+        (identifier)
+        (value_part
+          (binary_expression
+            (binary_expression
+              (binary_expression
+                (qualified_name
+                  (identifier))
+                (qualified_name
+                  (identifier)))
+              (binary_expression
+                (qualified_name
+                  (identifier))
+                (qualified_name
+                  (identifier))))
+            (binary_expression
+              (binary_expression
+                (qualified_name
+                  (identifier))
+                (qualified_name
+                  (identifier)))
+              (binary_expression
+                (qualified_name
+                  (identifier))
+                (qualified_name
+                  (identifier)))))))
+      (feature
+        (identifier)
+        (value_part
+          (binary_expression
+            (literal_integer)
+            (literal_integer))))
+      (feature
+        (identifier)
+        (value_part
+          (binary_expression
+            (binary_expression
+              (binary_expression
+                (classification_expression
+                  (qualified_name
+                    (identifier))
+                  (qualified_name
+                    (identifier)))
+                (classification_expression
+                  (qualified_name
+                    (identifier))
+                  (qualified_name
+                    (identifier))))
+              (classification_expression
+                (qualified_name
+                  (identifier))
+                (qualified_name
+                  (identifier))))
+            (classification_expression
+              (qualified_name
+                (identifier))
+              (qualified_name
+                (identifier))))))
+      (feature
+        (identifier)
+        (value_part
+          (extent_expression
+            (qualified_name
+              (identifier)))))
+      (feature
+        (identifier)
+        (value_part
+          (feature_chain_expression
+            (feature_chain_expression
+              (qualified_name
+                (identifier))
+              (qualified_name
+                (identifier)))
+            (qualified_name
+              (identifier)))))
+      (feature
+        (identifier)
+        (value_part
+          (arrow_expression
+            (arrow_expression
+              (qualified_name
+                (identifier))
+              (qualified_name
+                (identifier))
+              (body_expression
+                (feature
+                  (identifier))
+                (result_expression_member
+                  (binary_expression
+                    (qualified_name
+                      (identifier))
+                    (literal_integer)))))
+            (qualified_name
+              (identifier))
+            (argument_list))))
+      (feature
+        (identifier)
+        (value_part
+          (index_expression
+            (qualified_name
+              (identifier))
+            (literal_integer))))
+      (feature
+        (identifier)
+        (value_part
+          (index_expression
+            (qualified_name
+              (identifier))
+            (literal_integer))))
+      (feature
+        (identifier)
+        (value_part
+          (constructor_expression
+            (qualified_name
+              (identifier))
+            (argument_list
+              (literal_integer)
+              (literal_integer)))))
+      (feature
+        (identifier)
+        (value_part
+          (invocation_expression
+            (qualified_name
+              (identifier))
+            (argument_list
+              (named_argument
+                (qualified_name
+                  (identifier))
+                (literal_integer))
+              (named_argument
+                (qualified_name
+                  (identifier))
+                (literal_integer))))))
+      (feature
+        (identifier)
+        (value_part
+          (sequence_expression
+            (literal_integer)
+            (literal_integer)
+            (literal_integer))))
+      (feature
+        (identifier)
+        (value_part
+          (null_expression)))
+      (feature
+        (identifier)
+        (value_part
+          (null_expression)))
+      (feature
+        (identifier)
+        (value_part
+          (literal_string
+            (string))))
+      (feature
+        (identifier)
+        (value_part
+          (binary_expression
+            (literal_boolean)
+            (literal_boolean))))
+      (feature
+        (identifier)
+        (value_part
+          (binary_expression
+            (binary_expression
+              (literal_real)
+              (literal_real))
+            (literal_real))))
+      (feature
+        (identifier)
+        (value_part
+          (literal_infinity)))
+      (feature
+        (identifier)
+        (value_part
+          (select_expression
+            (qualified_name
+              (identifier))
+            (body_expression
+              (feature
+                (identifier))
+              (result_expression_member
+                (binary_expression
+                  (qualified_name
+                    (identifier))
+                  (literal_integer)))))))
+      (feature
+        (identifier)
+        (value_part
+          (collect_expression
+            (qualified_name
+              (identifier))
+            (body_expression
+              (feature
+                (identifier))
+              (result_expression_member
+                (binary_expression
+                  (qualified_name
+                    (identifier))
+                  (literal_integer)))))))
+      (feature
+        (identifier)
+        (value_part
+          (metadata_access_expression
+            (qualified_name
+              (identifier)))))
+      (feature
+        (identifier)
+        (value_part
+          (qualified_name
+            (identifier)
+            (identifier)
+            (identifier))))
+      (feature
+        (identifier)
+        (value_part
+          (qualified_name
+            (identifier)
+            (identifier))))
+      (feature
+        (identifier)
+        (value_part
+          (binary_expression
+            (qualified_name
+              (unrestricted_name))
+            (qualified_name
+              (unrestricted_name)))))
+      (feature
+        (identifier)
+        (value_part
+          (classification_expression
+            (classification_expression
+              (qualified_name
+                (identifier))
+              (qualified_name
+                (identifier)))
+            (qualified_name
+              (identifier)))))
+      (feature
+        (identifier)
+        (value_part
+          (binary_expression
+            (unary_expression
+              (qualified_name
+                (identifier)))
+            (literal_integer)))))))
+
+================================================================================
+Body expressions and result members
+================================================================================
+
+package Results {
+    function F { in x : Real; x * x }
+    function G {
+        in x : Real;
+        feature y = x + 1;
+        y * 2;
+    }
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (package
+    (identifier)
+    (body
+      (function
+        (identifier)
+        (body
+          (feature
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (result_expression_member
+            (binary_expression
+              (qualified_name
+                (identifier))
+              (qualified_name
+                (identifier))))))
+      (function
+        (identifier)
+        (body
+          (feature
+            (identifier)
+            (typed_by
+              (qualified_name
+                (identifier))))
+          (feature
+            (identifier)
+            (value_part
+              (binary_expression
+                (qualified_name
+                  (identifier))
+                (literal_integer))))
+          (result_expression_member
+            (binary_expression
+              (qualified_name
+                (identifier))
+              (literal_integer))))))))

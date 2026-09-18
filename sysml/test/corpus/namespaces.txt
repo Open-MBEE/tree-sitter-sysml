@@ -1,0 +1,142 @@
+================================================================================
+Packages, imports and aliases
+================================================================================
+
+standard library package Base {
+    private import ScalarValues::*;
+    import Occurrences::**;
+    import all Kernel::*;
+    import Kernel::*[@Safety];
+    alias <a> Anything for Base::Anything;
+    package Nested;
+    library package Lib;
+    namespace N;
+    dependency D from Base to Lib;
+    dependency from A, B to C;
+    filter @Safety;
+    comment about Base /* attached */
+    doc /* documented */
+    comment C locale "en" /* localized */
+    rep language "kerml" /* classifier X; */
+    // line note
+    //* block
+       note */
+    /* regular comment */
+    metadata Safety about Base;
+    @Safety;
+    #safe package Marked;
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (library_package
+    (identifier)
+    (body
+      (visibility)
+      (import
+        (qualified_name
+          (identifier)))
+      (import
+        (qualified_name
+          (identifier)))
+      (import
+        (qualified_name
+          (identifier)))
+      (import
+        (qualified_name
+          (identifier))
+        (filter_package_member
+          (classification_expression
+            (qualified_name
+              (identifier)))))
+      (alias_member
+        (identifier)
+        (identifier)
+        (qualified_name
+          (identifier)
+          (identifier)))
+      (package
+        (identifier))
+      (library_package
+        (identifier))
+      (namespace
+        (identifier))
+      (dependency
+        (identifier)
+        (qualified_name
+          (identifier))
+        (qualified_name
+          (identifier)))
+      (dependency
+        (qualified_name
+          (identifier))
+        (qualified_name
+          (identifier))
+        (qualified_name
+          (identifier)))
+      (element_filter_member
+        (classification_expression
+          (qualified_name
+            (identifier))))
+      (comment
+        (qualified_name
+          (identifier))
+        (regular_comment))
+      (documentation
+        (regular_comment))
+      (comment
+        (identifier)
+        (string)
+        (regular_comment))
+      (textual_representation
+        (string)
+        (regular_comment))
+      (line_note)
+      (block_note)
+      (comment
+        (regular_comment))
+      (metadata_usage
+        (qualified_name
+          (identifier))
+        (qualified_name
+          (identifier)))
+      (metadata_usage
+        (qualified_name
+          (identifier)))
+      (package
+        (prefix_metadata
+          (qualified_name
+            (identifier)))
+        (identifier)))))
+
+================================================================================
+Root level members
+================================================================================
+
+import Base::*;
+part def Vehicle;
+part vehicle : Vehicle;
+comment /* root */
+doc /* root doc */
+action def Drive;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (import
+    (qualified_name
+      (identifier)))
+  (part_definition
+    (identifier))
+  (part_usage
+    (identifier)
+    (typed_by
+      (qualified_name
+        (identifier))))
+  (comment
+    (regular_comment))
+  (documentation
+    (regular_comment))
+  (action_definition
+    (identifier)))
