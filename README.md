@@ -143,12 +143,11 @@ script/parse-coverage.sh --list ../OpenSysML      # whole checkout, list failure
 
 The OpenSysML checkout doubles as the regression corpus: its bundled standard
 library, examples, conformance fixtures and parser testdata all parse without
-errors. The files that still fail are the intentionally invalid inputs under
-`cmd/pilot-reject/testdata/negative/`, generated conversion-error artifacts,
-and a handful of fixtures written in the more lenient syntax OpenSysML's own
-parser accepts (KerML keywords such as `connector` or `feature` in `.sysml`
-files, prefixes such as `ordered` before the usage keyword). This grammar
-follows the OMG notation rather than those extensions.
+errors. The only files that fail are inputs written to be invalid: the
+negative corpus under `tools/referee/reject/testdata/negative/` and the
+`violating` probes under `tools/census/validation/testdata/probes/`. The
+grammar follows the OMG notation; OpenSysML's own parser additionally
+recovers from some nonstandard spellings and reports them as diagnostics.
 
 ## Grammar sources
 
