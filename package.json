@@ -29,6 +29,6 @@
     "check-queries": "script/check-queries.sh"
   },
   "devDependencies": {
-    "tree-sitter-cli": "^0.25.10"
+    "tree-sitter-cli": "^0.27.1"
   }
 }
